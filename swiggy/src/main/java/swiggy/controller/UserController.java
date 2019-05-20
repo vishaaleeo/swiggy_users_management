@@ -42,7 +42,6 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
 
-        ModelAndView homepage;
         User loginUser = userDAOImplementaion.loginUser(user);
         if(loginUser!=null) {
             return new ResponseEntity<String>(loginUser.toString(), HttpStatus.OK);
