@@ -54,7 +54,7 @@ public class UserController {
     @PostMapping ("/update")
     public ResponseEntity updateUser(@RequestBody User user) {
 
-    String result=userDAOImplementaion.updateUser(user);
+    String result = userDAOImplementaion.updateUser(user);
     return new ResponseEntity(result,HttpStatus.OK);
     }
 
@@ -64,7 +64,7 @@ public class UserController {
     @PostMapping("/delete")
     public ResponseEntity deleteUser(@RequestBody User user) {
 
-       String result= userDAOImplementaion.deleteUser(user);
+       String result = userDAOImplementaion.deleteUser(user);
 
        return new ResponseEntity(result,HttpStatus.OK);
     }
