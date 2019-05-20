@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import swiggy.domain.User;
 import swiggy.services.UserDAOImplementaion;
 
+import javax.xml.ws.Response;
+
 
 /*
  *To control and regulate the paths
@@ -23,11 +25,17 @@ public class UserController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity createUser(@RequestBody User data) {
+    public ResponseEntity createUser(@RequestBody User user) {
 
+        String result=userDAOImplementaion.createUser(user);
+        if(result.equals("success")) {
 
-        return new ResponseEntity(userDAOImplementaion.createUser(data),HttpStatus.OK);
+            return new ResponseEntity("User created successfully", HttpStatus.CREATED);
+        }
 
+        else {
+            return new ResponseEntity(result,HttpStatus.BAD_REQUEST);
+        }
     }
 
 
