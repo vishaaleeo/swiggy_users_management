@@ -28,11 +28,11 @@ public class UserController {
         String result=userDAOImplementaion.createUser(user);
         if(result.equals("success")) {
 
-            return new ResponseEntity("User created successfully", HttpStatus.CREATED);
+            return new ResponseEntity("User created successfully",HttpStatus.valueOf(201));
         }
 
         else {
-            return new ResponseEntity(result,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(result,HttpStatus.valueOf(400));
         }
     }
 
@@ -42,18 +42,18 @@ public class UserController {
 
         User loginUser = userDAOImplementaion.loginUser(user);
         if(loginUser!=null) {
-            return new ResponseEntity<String>(loginUser.toString(), HttpStatus.OK);
+            return new ResponseEntity<String>(loginUser.toString(), HttpStatus.valueOf(200));
         }
         else {
-            return new ResponseEntity<>("invalid user login",HttpStatus.OK);
+            return new ResponseEntity<>("invalid user login",HttpStatus.valueOf(200));
         }
     }
 
     @PostMapping ("/update")
     public ResponseEntity updateUser(@RequestBody User user) {
 
-    String result = userDAOImplementaion.updateUser(user);
-    return new ResponseEntity(result,HttpStatus.OK);
+    String result=userDAOImplementaion.updateUser(user);
+    return new ResponseEntity(result,HttpStatus.valueOf(200));
     }
 
 
@@ -62,9 +62,9 @@ public class UserController {
     @PostMapping("/delete")
     public ResponseEntity deleteUser(@RequestBody User user) {
 
-       String result = userDAOImplementaion.deleteUser(user);
+       String result= userDAOImplementaion.deleteUser(user);
 
-       return new ResponseEntity(result,HttpStatus.OK);
+       return new ResponseEntity(result,HttpStatus.valueOf(200));
     }
 
 
