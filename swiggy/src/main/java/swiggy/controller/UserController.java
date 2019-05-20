@@ -9,8 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 import swiggy.domain.User;
 import swiggy.services.UserDAOImplementaion;
 
-import javax.xml.ws.Response;
-
 
 /*
  *To control and regulate the paths
