@@ -1,8 +1,14 @@
 package swiggy.domain;
 
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.Collection;
 import java.util.Date;
 
 
@@ -10,7 +16,7 @@ import java.util.Date;
  * User bean to get user details from table
  */
 @Component
-public class User {
+public class User  {
 
     private Integer userIdentifier;
 
@@ -29,6 +35,24 @@ public class User {
     private Boolean deleteFlag;
 
     private Boolean isVerified;
+
+    private Integer phoneNumber;
+
+    public Boolean getVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(Boolean verified) {
+        isVerified = verified;
+    }
+
+    public Integer getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Integer phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public Integer getUserIdentifier() {
         return userIdentifier;

@@ -33,10 +33,10 @@ public class UserDAOImplementaion implements UserDAO {
         if (verifyUser(user.getUserName())) {
             String sql = "insert into user(user_name,user_pass,email,created_time,updated_time,delete_flag,user_type) values(?,?,?,?,?,?,?)";
 
-            if(!(user.getUserType().equals("admin") || user.getUserType().equals("normal") || user.getUserType().equals("delivery_member")||
-                    user.getUserType().equals("premium"))) {
+            if( user.getUserPass()==null || user.getUserType()==null || user.getEmail()==null|| !(user.getUserType().equals("admin") || user.getUserType().equals("normal") || user.getUserType().equals("delivery_member")||
+                    user.getUserType().equals("premium")) ) {
 
-                return "invalid user type";
+                return "invalid";
             }
 
             KeyHolder keyholder = new GeneratedKeyHolder();
@@ -60,11 +60,11 @@ public class UserDAOImplementaion implements UserDAO {
             }, keyholder);
 
             Integer key = keyholder.getKey().intValue();
-            return "User created successfully";
+            return "success";
 
 
         } else {
-            return "existing user";
+            return "existing";
         }
     }
 
@@ -75,7 +75,7 @@ public class UserDAOImplementaion implements UserDAO {
 
         if(user.getUserName()==null)
             return "Give user name";
-        if(verifyUser(user.getUserName())) {
+        if(!verifyUser(user.getUserName())) {
             if (user.getUserPass() != null) {
 
                 if (!updatePass(user))
@@ -140,7 +140,7 @@ public class UserDAOImplementaion implements UserDAO {
 
     public boolean verifyUser(String userName) {
 
-        int count=jdbcTemplate.queryForObject("select count(*) from user where user_name = ?",new Object[] {userName},Integer.class);
+        int count=jdbcTemplate.queryForObject("select count(*) from user where user_identifier = ?",new Object[] {userName},Integer.class);
 
         if(count>0)
             return false;
@@ -153,7 +153,7 @@ public class UserDAOImplementaion implements UserDAO {
     public boolean updatePass(User user) {
         try {
 
-            jdbcTemplate.update("update user set user_pass=? where user_name=?", user.getUserPass(), user.getUserName());
+            jdbcTemplate.update("update user set user_pass=? where user_identifier=?", user.getUserPass(), user.getUserName());
             return true;
         } catch (Exception e) {
             return false;
@@ -166,7 +166,7 @@ public class UserDAOImplementaion implements UserDAO {
     public boolean updateUserType(User user) {
 
         try {
-            jdbcTemplate.update("update user set user_type=? where user_name=?",user.getUserType(),user.getUserName());
+            jdbcTemplate.update("update user set user_type=? where user_identifier=?",user.getUserType(),user.getUserName());
             return true;
         }
         catch (Exception e) {
